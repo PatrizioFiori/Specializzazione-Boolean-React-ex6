@@ -1,9 +1,12 @@
 import useSwitch from "../CustomHook/UseSwitch";
 import useDate from "../CustomHook/UseDate";
+import useCustomPointer from "../CustomHook/useCustomPointer"
 
 const App = () => {
   const { isOn, toggle } = useSwitch();
   const { dateTime, stopTimer, setStopTimer } = useDate();
+  const customPointer = useCustomPointer("🔥");
+
 
   return (
     <>
@@ -34,6 +37,10 @@ const App = () => {
           <button className={`btn btn-${stopTimer ? "primary" : "success"} px-4 mx-1 py-2 fw-bold mb-4`} onClick={() => setStopTimer(!stopTimer)}>{stopTimer ? "Avvia" : "Ferma"}</button>
         </div>
       </div>
+      <div>
+        <h1>Sposta il mouse per vedere il cursore personalizzato!</h1>
+        {customPointer}
+      </div>
     </>
 
 
@@ -51,10 +58,19 @@ Creare un custom hook per alternare un valore booleano tra true e false.
 Creare un custom hook che restituisca la data e l'ora correnti, 
 aggiornandosi automaticamente ogni secondo.
 
+
+🏆 Snack 3: useCustomPointer() – Cambia il Cursore del Mouse
+Creare un custom hook che sostituisca il cursore del mouse con 
+un componente personalizzato.
+
+🎯 Bonus: useKeyPress() – Rilevare un Tasto Premuto
+Creare un custom hook che rilevi se un tasto specifico della tastiera è premuto.
+
 Cosa deve fare?
 
-Restituisce un oggetto con data e ora formattata.
-Si aggiorna automaticamente ogni secondo.
-Usa useEffect() per gestire l’aggiornamento.
+Prende in input il nome di un tasto ("Enter", "Escape", ecc.).
+Ritorna true quando il tasto è premuto e false quando viene rilasciato.
+Usa event listener su keydown e keyup.
 Esempio di utilizzo:
+
 */
