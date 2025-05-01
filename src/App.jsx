@@ -1,53 +1,58 @@
 import useSwitch from "../CustomHook/UseSwitch";
 import useDate from "../CustomHook/UseDate";
-import useCustomPointer from "../CustomHook/useCustomPointer"
+import useCustomPointer from "../CustomHook/useCustomPointer";
+import useKeyPressed from "../CustomHook/useKeyPressed";
 
 const App = () => {
   const { isOn, toggle } = useSwitch();
   const { dateTime, stopTimer, setStopTimer } = useDate();
   const customPointer = useCustomPointer("🔥");
-
+  const { text, isPressed } = useKeyPressed();
 
   return (
-    <>
-      <div
-        className={`vh-100 d-flex flex-column justify-content-center align-items-center transition text-center`}
-        style={{
-          backgroundColor: isOn ? "#fce96a" : "#1c1c1c",
-          color: isOn ? "#000" : "#fff",
-          transition: "all 0.4s ease-in-out",
-        }}
+    <div
+      className={`min-vh-100 d-flex flex-column justify-content-center align-items-center text-center`}
+      style={{
+        backgroundColor: isOn ? "#fce96a" : "#1c1c1c",
+        color: isOn ? "#000" : "#fff",
+      }}
+    >
+      <h1 className="mb-4">
+        L'interruttore è {isOn ? "ON 💡" : "OFF 💤"}
+      </h1>
+
+      <button
+        className={`btn btn-${isOn ? "dark" : "warning"} mb-4`}
+        onClick={toggle}
       >
+        {isOn ? "Spegni" : "Accendi"}
+      </button>
 
-        <h1 className="mb-4">
-          L'interruttore è {isOn ? "ON 💡" : "OFF 💤"}
-        </h1>
-
+      <div className="mb-4">
+        <h2>Ora attuale:</h2>
+        <h3>{dateTime.toLocaleString()}</h3>
         <button
-          className={`btn btn-${isOn ? "dark" : "warning"} px-4 py-2 fw-bold mb-4`}
-          onClick={toggle}
+          className={`btn btn-${stopTimer ? "primary" : "success"} mb-4`}
+          onClick={() => setStopTimer(!stopTimer)}
         >
-          {isOn ? "Spegni" : "Accendi"}
+          {stopTimer ? "Avvia" : "Ferma"}
         </button>
-
-        {/* Orario */}
-        <div>
-          <h2 className="mb-0">Ora attuale:</h2>
-          <h3>{dateTime.toLocaleString()}</h3>
-          <button className={`btn btn-${stopTimer ? "primary" : "success"} px-4 mx-1 py-2 fw-bold mb-4`} onClick={() => setStopTimer(!stopTimer)}>{stopTimer ? "Avvia" : "Ferma"}</button>
-        </div>
       </div>
+
+      <div className="mb-4">
+        <span className="fs-1">{customPointer}</span>
+      </div>
+
       <div>
-        <h1>Sposta il mouse per vedere il cursore personalizzato!</h1>
-        {customPointer}
+        <h2>Premi un tasto qualsiasi: {isPressed ? text : ""}</h2>
       </div>
-    </>
-
-
+    </div>
   );
 };
 
 export default App;
+
+
 
 /*
 🏆 Snack 1: useSwitch() – Toggle Booleano

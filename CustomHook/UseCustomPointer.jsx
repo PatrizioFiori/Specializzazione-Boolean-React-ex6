@@ -1,18 +1,17 @@
+
 import { useState, useEffect } from "react"
 
 export default function useCustomPointer(component) {
-    const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [position, setPosition] = useState({ X: 0, Y: 0 })
 
     useEffect(() => {
         const handleMouseMove = event => {
-            setPosition({ x: event.clientX, y: event.clientY })
+            setPosition({ X: event.clientX, Y: event.clientY })
         }
 
         document.addEventListener("mousemove", handleMouseMove)
 
-        return () => {
-            document.removeEventListener("mousemove", handleMouseMove)
-        }
+        return () => { document.removeEventListener("mousemove", handleMouseMove) }
 
     }, [])
 
@@ -20,15 +19,14 @@ export default function useCustomPointer(component) {
         <div
             style={{
                 position: "fixed",
-                top: position.y,
-                left: position.x,
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-            }}
+                top: position.Y,
+                left: position.X + 10,
 
+            }}
         >
             {component}
         </div>
     )
 
 }
+
